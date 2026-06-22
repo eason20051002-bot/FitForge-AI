@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitForge AI｜智慧健身管理平台</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">💪 FitForge AI</div>
+
+        <ul>
+
+            <li><a href="#home">首頁</a></li>
+
+            <li><a href="#features">功能</a></li>
+
+            <li><a href="#dashboard">儀表板</a></li>
+
+            <li><a href="#bmi">BMI</a></li>
+
+            <li><a href="#tdee">TDEE</a></li>
+
+            <li><a href="#aiCoach">AI Coach</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Hero -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <h1>FITFORGE AI</h1>
+
+            <p>
+
+                智慧健身與營養管理平台，
+
+                整合 BMI、TDEE、營養需求、
+
+                飲水追蹤、健康分數與 AI 健身建議。
+
+            </p>
+
+            <div class="buttons">
+
+                <button class="primary"
+                    onclick="location.href='#dashboard'">
+
+                    開始使用
+
+                </button>
+
+                <button class="secondary"
+                    onclick="location.href='#features'">
+
+                    探索功能
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+
+    <section id="features" class="features">
+
+        <h2>核心功能</h2>
+
+        <div class="card-container">
+
+            <div class="card">
+
+                <h3>💪 BMI 分析</h3>
+
+                <p>
+                    快速計算 BMI，
+                    了解自己的身體狀態。
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🔥 TDEE 熱量需求</h3>
+
+                <p>
+                    估算每日消耗熱量，
+                    幫助規劃飲食。
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🍗 營養建議</h3>
+
+                <p>
+                    自動計算蛋白質、
+                    脂肪與碳水需求。
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>💧 飲水追蹤</h3>
+
+                <p>
+                    計算每日建議飲水量，
+                    維持健康代謝。
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>📊 健康圖表</h3>
+
+                <p>
+                    使用 Chart.js
+                    顯示健康數據。
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🤖 AI 健身助手</h3>
+
+                <p>
+                    根據目標產生個人化建議。
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Dashboard -->
+
+    <section id="dashboard" class="dashboard">
+
+        <h2>今日健康儀表板</h2>
+
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+
+                <h3>🏆 健康分數</h3>
+
+                <h1 id="healthScore">0</h1>
+
+                <div class="progress">
+
+                    <div class="progress-bar"
+                        id="progressBar">
+
+                    </div>
+
+                </div>
+
+                <p id="healthText">
+
+                    等待計算...
+
+                </p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>💪 BMI</h3>
+
+                <p id="dashboardBMI">--</p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>🔥 TDEE</h3>
+
+                <p id="dashboardTDEE">-- kcal</p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>🍗 蛋白質</h3>
+
+                <p id="dashboardProtein">-- g</p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>💧 飲水量</h3>
+
+                <p id="dashboardWater">-- ml</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Chart -->
+
+    <section class="chart-section">
+
+        <h2>健康數據分析</h2>
+
+        <div class="chart-card">
+
+            <canvas id="healthChart"></canvas>
+
+        </div>
+
+    </section>
+    <!-- BMI -->
+
+    <section id="bmi" class="calculator">
+
+        <h2>BMI 身體質量指數</h2>
+
+        <div class="bmi-box">
+
+            <input
+                type="number"
+                id="height"
+                placeholder="請輸入身高（cm）"
+            >
+
+            <input
+                type="number"
+                id="weight"
+                placeholder="請輸入體重（kg）"
+            >
+
+            <button onclick="calculateBMI()">
+
+                立即計算 BMI
+
+            </button>
+
+            <div id="bmiResult">
+
+                請輸入資料後進行計算
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- TDEE -->
+
+    <section id="tdee" class="calculator">
+
+        <h2>TDEE 每日熱量需求</h2>
+
+        <div class="bmi-box">
+
+            <input
+                type="number"
+                id="age"
+                placeholder="請輸入年齡"
+            >
+
+            <select id="gender">
+
+                <option value="male">
+
+                    男性
+
+                </option>
+
+                <option value="female">
+
+                    女性
+
+                </option>
+
+            </select>
+
+            <input
+                type="number"
+                id="height2"
+                placeholder="請輸入身高（cm）"
+            >
+
+            <input
+                type="number"
+                id="weight2"
+                placeholder="請輸入體重（kg）"
+            >
+
+            <select id="activity">
+
+                <option value="1.2">
+
+                    久坐少動
+
+                </option>
+
+                <option value="1.375">
+
+                    輕度活動（一週運動1-3天）
+
+                </option>
+
+                <option value="1.55">
+
+                    中度活動（一週運動3-5天）
+
+                </option>
+
+                <option value="1.725">
+
+                    高度活動（一週運動6-7天）
+
+                </option>
+
+                <option value="1.9">
+
+                    運動員等級
+
+                </option>
+
+            </select>
+
+            <button onclick="calculateTDEE()">
+
+                計算 TDEE
+
+            </button>
+
+            <div id="tdeeResult">
+
+                請輸入資料後進行計算
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Nutrition -->
+
+    <section id="nutrition" class="calculator">
+
+        <h2>每日營養需求</h2>
+
+        <div class="bmi-box">
+
+            <input
+                type="number"
+                id="proteinWeight"
+                placeholder="請輸入體重（kg）"
+            >
+
+            <button onclick="calculateNutrition()">
+
+                計算營養需求
+
+            </button>
+
+            <div id="nutritionResult">
+
+                請輸入體重後進行計算
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Water -->
+
+    <section id="water" class="calculator">
+
+        <h2>每日飲水需求</h2>
+
+        <div class="bmi-box">
+
+            <input
+                type="number"
+                id="waterWeight"
+                placeholder="請輸入體重（kg）"
+            >
+
+            <button onclick="calculateWater()">
+
+                計算飲水量
+
+            </button>
+
+            <div id="waterResult">
+
+                請輸入體重後進行計算
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- AI Coach -->
+
+    <section id="aiCoach" class="calculator">
+
+        <h2>AI 健身助手</h2>
+
+        <div class="bmi-box">
+
+            <select id="fitnessGoal">
+
+                <option value="muscle">
+
+                    增肌
+
+                </option>
+
+                <option value="fatloss">
+
+                    減脂
+
+                </option>
+
+                <option value="maintain">
+
+                    維持體態
+
+                </option>
+
+            </select>
+
+            <select id="trainingLevel">
+
+                <option value="beginner">
+
+                    初學者
+
+                </option>
+
+                <option value="intermediate">
+
+                    中階訓練者
+
+                </option>
+
+                <option value="advanced">
+
+                    進階訓練者
+
+                </option>
+
+            </select>
+
+            <button onclick="generateCoachAdvice()">
+
+                產生 AI 健身建議
+
+            </button>
+
+            <div id="coachResult">
+
+                請選擇目標後產生建議
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Contact -->
+
+    <section class="contact">
+
+        <h2>設計理念</h2>
+
+        <div class="contact-box">
+
+            <p>
+
+                FitForge AI 是一個整合健身、營養、
+                飲水追蹤與健康分析的智慧平台。
+
+            </p>
+
+            <br>
+
+            <p>
+
+                使用者可以透過 BMI、TDEE、
+                每日營養需求與飲水量計算，
+                快速了解自己的身體狀況。
+
+            </p>
+
+            <br>
+
+            <p>
+
+                透過健康儀表板與圖表分析，
+                使用者能更直觀地追蹤健康數據。
+
+            </p>
+
+            <br>
+
+            <p>
+
+                AI 健身助手則會依照目標提供
+                個人化訓練與飲食建議，
+                提升網站的實用性與創新性。
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            © 2026 FitForge AI
+
+        </p>
+
+        <p>
+
+            智慧健身與營養管理平台
+
+        </p>
+
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
